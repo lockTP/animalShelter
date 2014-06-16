@@ -83,10 +83,13 @@ public class TestAnimalQueue {
 	@Test
 	public void TestDequeAny1(){
 		AnimalQueue animalQueue= new AnimalQueue();
-		Cat cat1= new Cat("Cat1");
-		Dog dog1= new Dog("Dog1");
+//		Cat cat1= new Cat("Cat1");
+//		Dog dog1= new Dog("Dog1");
+		Cat cat1 = mock(Cat.class);
+		Dog dog1 = mock(Dog.class);
 		animalQueue.enqueue(cat1);
 		animalQueue.enqueue(dog1);
+		Mockito.when(dog1.isOlderThan(cat1)).thenReturn(false);
 		assertEquals(cat1, animalQueue.dequeueAny());
 	}
 	
@@ -95,12 +98,14 @@ public class TestAnimalQueue {
 	@Test
 	public void TestDequeAny2(){
 		AnimalQueue animalQueue= new AnimalQueue();
-		Cat cat1= new Cat("Cat1");
-		Cat cat2= new Cat("Cat2");
-		Dog dog1= new Dog("Dog1");
+		Cat cat1= mock(Cat.class);
+		Cat cat2= mock(Cat.class);
+		Dog dog1= mock(Dog.class);
 		animalQueue.enqueue(cat1);
 		animalQueue.enqueue(cat2);
 		animalQueue.enqueue(dog1);
+		Mockito.when(dog1.isOlderThan(cat1)).thenReturn(false);
+		Mockito.when(dog1.isOlderThan(cat2)).thenReturn(false);
 		assertEquals(cat1, animalQueue.dequeueAny());
 		assertEquals(cat2, animalQueue.dequeueAny());
 		assertEquals(dog1, animalQueue.dequeueAny());
@@ -111,12 +116,14 @@ public class TestAnimalQueue {
 	@Test
 	public void TestDequeAny3(){
 		AnimalQueue animalQueue= new AnimalQueue();
-		Cat cat1= new Cat("Cat1");
-		Dog dog1= new Dog("Dog1");
-		Cat cat2= new Cat("Cat2");
+		Cat cat1= mock(Cat.class);
+		Dog dog1= mock(Dog.class);
+		Cat cat2= mock(Cat.class);
 		animalQueue.enqueue(cat1);
 		animalQueue.enqueue(dog1);
 		animalQueue.enqueue(cat2);
+		Mockito.when(dog1.isOlderThan(cat1)).thenReturn(false);
+		Mockito.when(dog1.isOlderThan(cat2)).thenReturn(true);
 		assertEquals(cat1, animalQueue.dequeueAny());
 		assertEquals(dog1, animalQueue.dequeueAny());
 		assertEquals(cat2, animalQueue.dequeueAny());
